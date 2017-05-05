@@ -1,0 +1,106 @@
+<!--View Information-->
+<!--View name : Default User Interface-->
+<!--Controller name : defaultUserInterfaceCtrl-->
+<!--Controller path : www/templates/material-user-interface/default-user-interface/js/controllers.js-->
+<!--State name : app.defaultUI-->
+<!--URL : #app/defaultUI-->
+
+<ion-view title="Daftar Tugas">
+    <!--user interface section-->
+    <ion-slide-box id="user-interface-content" active-slide="0">
+        <!--slide section-->
+        <ion-slide class="slide-04" ng-repeat="task in tasks" data-index=""{{task.index}}"" style="width: 334px; left: 0px;">
+
+            <md-card>
+                <img ng-src="{{'img/bg_cover_01.png'}}" class="md-card-image" alt="Card image">
+                <md-card-content>
+                    <h2 class="md-title">{{ task.firstName }} {{ task.lastName }}</h2>
+
+                    <p>
+                        {{ task.telephone }}
+                    </p>
+                </md-card-content>
+                <div class="md-actions" layout="Roww" layout-align="end center">
+                    <a href="" class="md-button md-default-theme" ng-click="navigateTo('app.onlineCourse',task)">View</a>
+                </div>
+            </md-card>
+
+        </ion-slide>
+        <!--end slide section-->
+    </ion-slide-box>  <!--end user interface section-->
+
+</ion-view>
+
+<!--angular template section-->
+<script type="text/ng-template" id="ui-list-bottom-sheet-template">
+    <md-bottom-sheet class="md-list md-has-header">
+        <h1 class="md-bottom-sheet-header">List Bottom Sheet</h1>
+        <!--list section-->
+        <md-list>
+            <md-list-item>
+                <a class="md-default-theme md-bottom-sheet-list-item"
+                   ng-click="closeListBottomSheet()">
+                    <i class="ion-android-call"></i>
+                    <span>Actions 1</span>
+                </a>
+            </md-list-item>
+            <md-list-item>
+                <a class="md-default-theme md-bottom-sheet-list-item"
+                   ng-click="closeListBottomSheet()">
+                    <i class="ion-android-list"></i>
+                    <span>Actions 2</span>
+                </a>
+            </md-list-item>
+            <md-list-item>
+                <a class="md-default-theme md-bottom-sheet-list-item"
+                   ng-click="closeListBottomSheet()">
+                    <i class="ion-android-delete"></i>
+                    <span>Actions 3</span>
+                </a>
+            </md-list-item>
+        </md-list>
+
+        <!--end list section-->
+    </md-bottom-sheet>
+</script>
+
+<script type="text/ng-template" id="ui-grid-bottom-sheet-template">
+    <md-bottom-sheet class="md-grid">
+        <!--list section-->
+        <md-list id="bottom-sheet-grid-md-list">
+            <md-list-item>
+                <a class="md-grid-item-content" ng-click="closeListBottomSheet()">
+                    <md-icon md-svg-src="facebook"></md-icon>
+                    <div class="md-grid-text"> Facebook</div>
+                </a>
+            </md-list-item>
+            <md-list-item>
+                <a class="md-grid-item-content" ng-click="closeListBottomSheet()">
+                    <md-icon md-svg-src="twitter"></md-icon>
+                    <div class="md-grid-text"> Twitter</div>
+                </a>
+            </md-list-item>
+            <md-list-item>
+                <a class="md-grid-item-content" ng-click="closeListBottomSheet()">
+                    <md-icon md-svg-src="mail"></md-icon>
+                    <div class="md-grid-text"> Mail</div>
+                </a>
+            </md-list-item>
+            <md-list-item>
+                <a class="md-grid-item-content" ng-click="closeListBottomSheet()">
+                    <i class="ion-android-image"></i>
+
+                    <div class="md-grid-text"> Save Image</div>
+                </a>
+            </md-list-item>
+            <md-list-item>
+                <a class="md-grid-item-content" ng-click="closeListBottomSheet()">
+                    <md-icon md-svg-src="share-arrow"></md-icon>
+                    <div class="md-grid-text"> More</div>
+                </a>
+            </md-list-item>
+        </md-list>
+        <!--end list section-->
+    </md-bottom-sheet>
+</script>
+<!--end angular template section-->
