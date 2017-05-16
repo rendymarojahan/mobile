@@ -34,17 +34,17 @@
                 <i class="ion-android-mail"></i>
                 <input ng-model="contract.email" name="email" placeholder="Email">
             </md-input-container>
-            <md-input-container md-no-float>
+            <md-input-container md-no-float ng-hide=true>
                 <i class="ion-android-calendar"></i>
                 <input ng-model="contract.createDate" disabled name="dateTime" placeholder="Date Time">
             </md-input-container>
             <md-input-container md-no-float>
-                <i class="ion-android-favorite"></i>
-                <input ng-model="contract.age" numbers-only name="age" placeholder="Age" type="tel">
+                <i class="ion-android-calendar"></i>
+                <input ng-model="contract.age" numbers-only name="age" placeholder="Age" type="date">
             </md-input-container><!--end contract detail input section-->
 
             <!--contract switch section-->
-            <md-switch ng-model="contract.isEnable" ng-disabled="actionDelete">
+            <md-switch ng-model="contract.isEnable" ng-disabled="actionDelete" ng-hide=true>
                 {{(contract.isEnable == true ? 'Enable' : 'Disabled' ) }} Pelanggan
             </md-switch><!--end contract switch section-->
 

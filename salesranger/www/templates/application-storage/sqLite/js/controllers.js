@@ -103,7 +103,7 @@ appControllers.controller('contractListCtrl', function ($scope, $stateParams, $f
 });// End of Contract List Page  Controller.
 
 // Controller of Contract Detail Page.
-appControllers.controller('contractDetailCtrl', function ($mdBottomSheet, $mdToast, $scope, $stateParams, $filter, $mdDialog, $ionicHistory, $ionicHistory, CustomerFactory, CurrentUserService) {
+appControllers.controller('contractDetailCtrl', function ($mdBottomSheet, $mdToast, $scope, $stateParams, $filter, $mdDialog, $ionicHistory, $ionicHistory, CustomerFactory, CurrentUserService, myCache) {
     
     // initialForm is the first activity in the controller. 
     // It will initial all variable data and let the function works when page load.
@@ -173,7 +173,7 @@ appControllers.controller('contractDetailCtrl', function ($mdBottomSheet, $mdToa
                     createDate: contract.createDate,
                     age: contract.age,
                     isEnable: contract.isEnable,
-                    addedby: CurrentUserService.fullname,
+                    addedby: myCache.get('thisMemberId'),
                     dateupdated: Date.now()
                 }
                 $scope.tugas = {
@@ -184,7 +184,7 @@ appControllers.controller('contractDetailCtrl', function ($mdBottomSheet, $mdToa
                     createDate: contract.createDate,
                     age: contract.age,
                     isEnable: contract.isEnable,
-                    assignto: CurrentUserService.fullname,
+                    assignto: myCache.get('thisMemberId'),
                     dateupdated: Date.now()
                 }
                 // To update data by calling ContractDB.update(contract) service.

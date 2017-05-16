@@ -22,8 +22,8 @@ window.globalVariable = {
         wordpressColor: "#0087BE"
     },// End custom color style variable
     startPage: {
-        url: "/app/menuDashboard",//Url of start page.
-        state: "app.menuDashboard"//State name of start page.
+        url: "/fakeLogin",//Url of start page.
+        state: "fakeLogin"//State name of start page.
     },
     message: {
         errorMessage: "Technical error please try again later." //Default error message.
@@ -40,7 +40,7 @@ window.globalVariable = {
 
 
 angular.module('starter', ['ionic','ngIOS9UIWebViewPatch', 'starter.controllers', 'starter.services', 'ngMaterial', 'ngMessages', 'ngCordova', 'firebase', 'ngStorage',])
-    .run(function ($ionicPlatform, $cordovaSQLite, $rootScope, $ionicHistory, $state, $mdDialog, $mdBottomSheet, $cordovaTouchID, $localStorage) {
+    .run(function ($ionicPlatform, $cordovaSQLite, $window, $rootScope, $ionicHistory, $state, $mdDialog, $mdBottomSheet, $cordovaTouchID, $localStorage) {
 
         //Create database table of contracts by using sqlite database.
         //Table schema :
@@ -229,19 +229,24 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch', 'starter.controllers'
         $rootScope.customStyle = createCustomStyle(window.globalVariable.startPage.state);
 
         $ionicPlatform.ready(function () {
-            ionic.Platform.isFullScreen = true;
-            if (window.cordova && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                cordova.plugins.Keyboard.disableScroll(true);
-            }
-            if (window.StatusBar) {
-                StatusBar.styleDefault();
-            }
             setTimeout(function () {
+                ionic.Platform.isFullScreen = true;
+                if (window.cordova && window.cordova.plugins.Keyboard) {
+                    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                    cordova.plugins.Keyboard.disableScroll(true);
+                }
+                if (window.StatusBar) {
+                    StatusBar.styleDefault();
+                }
+            }, 300);
+            setTimeout(function () {
+                    
                     if (typeof $localStorage.enableTouchID === 'undefined' || $localStorage.enableTouchID === '' || $localStorage.enableTouchID === false) {
                         //should already be on login page
+                        $state.reload();
                         $state.go("fakeLogin");
                     } else {
+                        $state.reload();
                         $cordovaTouchID.checkSupport().then(function () {
                             $cordovaTouchID.authenticate("All users with a Touch ID profile on the device will have access to this app").then(function () {
                                 $state.go("loginauto");
@@ -260,19 +265,16 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch', 'starter.controllers'
             initialRootScope();
 
             //Checking if view is changing it will go to this function.
-            $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
+            $rootScope.$on("$stateChangeError", function (event, $window, toState, toParams, fromState, fromParams, error) {
                     if (error === "AUTH_REQUIRED") {
                         $ionicHistory.clearCache();
-                        $rootScope.authData = '';
+                        $state.reload();
                         fb.unauth();
                         $state.go("fakeLogin");
                     }
-            });
-            $rootScope.$on('$ionicView.beforeEnter', function () {
-                //hide Action Control for android back button.
-                hideActionControl();
-                // Add custom style ti view.
-                $rootScope.customStyle = createCustomStyle($ionicHistory.currentStateName());
+                    hideActionControl();
+                    // Add custom style ti view.
+                    $rootScope.customStyle = createCustomStyle($ionicHistory.currentStateName());
             });
         });
 
@@ -453,6 +455,19 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch', 'starter.controllers'
                     }
                 }
             })
+            .state('app.dealdetail', {
+                url: "/dealdetail",
+                params: {
+                    noteDetail: null,
+                    actionDelete: false
+                },
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/application-storage/local-application-db/html/deal-detail.html",
+                        controller: 'dealDetailCtrl'
+                    }
+                }
+            })
             .state('app.facebookLogin', {
                 url: "/facebookLogin",
                 cache: false,
@@ -613,15 +628,6 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch', 'starter.controllers'
                     'menuContent': {
                         templateUrl: "templates/social-network-connect/dropbox/html/dropbox-feed.html",
                         controller: 'dropboxFeedCtrl'
-                    }
-                }
-            })
-            .state('app.fakeLogin', {
-                url: "/fakeLogin",
-                cache: false,
-                views: {
-                    'menuContent': {
-                        templateUrl: "templates/themes/authentication/html/fake-login.html"
                     }
                 }
             })

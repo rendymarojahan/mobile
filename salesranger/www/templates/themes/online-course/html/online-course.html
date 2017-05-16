@@ -10,7 +10,7 @@
             <i class="ion-android-arrow-back"></i>
         </a>
     </ion-nav-buttons>
-    <ion-content id="product-detail-content" class="fade-in">
+    <ion-content id="product-detail-content" class="fade-in" overflow-scroll="true">
         <md-content>
             <!--product tabs section-->
             <md-tabs md-border-bottom md-selected="0" id="product-detail-tabs" class="no-border">
@@ -27,7 +27,7 @@
                             <div class="product-detail-price">
                                 <div class="right">
                                     <a class="md-raised md-warn md-button md-default-theme" ng-click="addToCart()">
-                                        {{product.status}}
+                                        Kesepakatan{{product.status}}
                                     </a>
                                 </div>
                             </div><!--end product tab detail price section-->
@@ -88,12 +88,12 @@
                                         </p>
 
                                         <p>
-                                            <a href="" class="md-raised md-button md-default-theme angular-course-background">
-                                                <i class="fa fa-phone"></i> {{product.telepon}}</a>
-                                            <a href="" class="md-raised md-button md-default-theme angular-course-background">
-                                                <i class="fa fa-commenting"></i>{{product.sms}}</a>
-                                            <a href="" class="md-raised md-button md-default-theme angular-course-background">
-                                                <i class="fa fa-envelope"></i>{{product.mail}}</a>
+                                            <a href="tel: {{product.telephone}}" class="md-raised md-button md-default-theme angular-course-background">
+                                                <i class="fa fa-phone"></i> 3{{product.telepon}}</a>
+                                            <a href="sms: {{product.telephone}}" class="md-raised md-button md-default-theme angular-course-background">
+                                                <i class="fa fa-commenting"></i>2{{product.sms}}</a>
+                                            <a href="mailto: {{product.email}}" class="md-raised md-button md-default-theme angular-course-background">
+                                                <i class="fa fa-envelope"></i>2{{product.mail}}</a>
                                         </p>
                                     </div>
                                 </div> <!--end content item section-->
@@ -113,8 +113,8 @@
                                         </p>
 
                                         <p>
-                                            <a href="" class="md-raised md-button md-default-theme ionic-course-background">
-                                                <i class="fa fa-calendar"></i> {{product.pertemuan}}</a>
+                                            <a href="" class="md-raised md-button md-default-theme ionic-course-background" ng-click="navigateTo('app.notelist',product)">
+                                                <i class="fa fa-calendar"></i> 1{{product.pertemuan}}</a>
                                         </p>
                                     </div>
                                 </div><!--end content item section-->
@@ -135,7 +135,7 @@
 
                                         <p>
                                             <a href="" class="md-raised md-button md-default-theme ios-course-background">
-                                                <i class="fa fa-file-text"></i> {{product.penawaran}}</a>
+                                                <i class="fa fa-file-text"></i> 1{{product.penawaran}}</a>
                                         </p>
                                     </div>
                                 </div><!--end content item section-->
@@ -155,7 +155,7 @@
                                         </p>
 
                                         <p>
-                                            <a href="" class="md-raised md-button md-default-theme android-course-background">
+                                            <a href="" class="md-raised md-button md-default-theme android-course-background" ng-click="navigateTo('app.dealdetail',product)">
                                                 <i class="fa fa-handshake-o"></i> {{product.kesepakatan}}</a>
                                         </p>
                                     </div>
