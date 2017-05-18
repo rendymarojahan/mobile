@@ -1,0 +1,67 @@
+<!--View Information-->
+<!--View name : Note List-->
+<!--Controller name : noteListCtrl-->
+<!--Controller path : www/templates/application-storage/local-application-db/js/controllers.js-->
+<!--State name : app.notelist-->
+<!--URL : #app/notelist-->
+
+<ion-view title="{{task.firstName}}">
+    <!--right button on navigation bar-->
+    <ion-nav-buttons side="left">
+        <a ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+    </ion-nav-buttons><!--end right button on navigation bar-->
+
+    <!--note list section-->
+    <ion-content id="note-list-content" class="fade-in">
+        <!--list section-->
+        <md-list>
+            <!--list item section-->
+            <md-list-item>
+                <md-input-container md-no-float="" class="search-box">
+                    <i class="ion-android-search"></i>
+                    <input ng-model="filterText" placeholder="Cari pertemuan.">
+                </md-input-container>
+            </md-list-item>
+            <div id="location-feed-content">
+                <div class="location-list">
+                    <!--location item section-->
+                    <div class="location-item" ng-repeat="note in noteList | filter: { no: filterText } | orderBy: 'no'" ng-click="navigateTo('app.dealdetail' , note )">
+                        <div class="location-img" style="background-image:url('img/location_feed_01.png')">
+
+                        </div>
+                        <div class="location-content row">
+                            <div class="col-90">
+                                <h1>
+                                    {{note.no}}
+                                </h1>
+
+                                <p>
+                                    <i class="fa fa-flag"></i> {{note.isi}}
+                                </p>
+                            </div>
+                            <div class="col-10">
+                                <span class="text-add">{{note.createDate}}</span>
+                            </div>
+                        </div>
+                    </div><!--end location item section-->
+                </div><!--end list section-->
+            </div>
+            <!--end list item section-->
+        </md-list>
+        <!--end list section-->
+    </ion-content><!--end note list section-->
+    <!--footer fab bar-->
+    <div class="footer-fab-bar">
+        <a class="md-button md-accent md-fab fab-footer" ng-click="navigateTo('app.dealdetail')" aria-label="Add">
+            <i class="ion-android-create"></i>
+        </a>
+    </div><!--end footer fab bar-->
+
+    <!--loading progress-->
+    <div id="note-list-loading-progress" class="loading-progress fade-in">
+        <ion-spinner ng-if="!isAndroid" class="progress-circular"></ion-spinner>
+        <md-progress-circular ng-if="isAndroid" md-mode="indeterminate"></md-progress-circular>
+    </div><!--end loading progress-->
+</ion-view>

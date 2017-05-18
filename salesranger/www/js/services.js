@@ -66,6 +66,9 @@ angular.module('starter.services', [])
         var pRef = {};
         var customersRef = {};
         var tasksRef = {};
+        var kesepakatanRef = {};
+        var penawaranRef = {};
+        var pertemuanRef = {};
         var uRef = fb.child("customers");
         var thisUserId = myCache.get('thisMemberId');
         return {
@@ -86,6 +89,21 @@ angular.module('starter.services', [])
                 ref = fb.child("tasks").orderByChild("assignto").equalTo(thisUserId);
                 tasksRef = $firebaseArray(ref);
                 return tasksRef;
+            },
+            getKesepakatan: function (id) {
+                ref = fb.child("tasks").child(id).child("kesepakatan");
+                kesepakatanRef = $firebaseArray(ref);
+                return kesepakatanRef;
+            },
+            getPenawaran: function (id) {
+                ref = fb.child("tasks").child(id).child("penawaran");
+                penawaranRef = $firebaseArray(ref);
+                return penawaranRef;
+            },
+            getPertemuan: function (id) {
+                ref = fb.child("tasks").child(id).child("pertemuan");
+                pertemuanRef = $firebaseArray(ref);
+                return pertemuanRef;
             }
             
             

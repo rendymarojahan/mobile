@@ -1,0 +1,80 @@
+<!--View Information-->
+<!--View name : Note Detail-->
+<!--Controller name : noteDetailCtrl-->
+<!--Controller path : www/templates/application-storage/local-application-db/js/controllers.js-->
+<!--State name : app.notedetail-->
+<!--URL : #app/notedetail-->
+
+<ion-view view-title="{{task.firstName}}">
+    <!--left button on navigation bar-->
+    <ion-nav-buttons side="left">
+        <a ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item nav-back-btn">
+            <i class="ion-android-arrow-back"></i>
+        </a>
+    </ion-nav-buttons><!--end left button on navigation bar-->
+
+    <!--note detail section-->
+    <form name="noteForm">
+        <ion-content>
+            <!--toolbar section-->
+            <md-toolbar class="bar-subheader md-tall md-primary toolbar-medium toolbar-in-content">
+                <div>
+                    <h1>
+                        <i class="ion-android-list"></i>
+                    </h1>
+
+                    <h3>Atur Kesepakatan</h3>
+                </div>
+                <a class="md-button md-accent md-fab fab-toolbar-medium"
+                   ng-click="showListBottomSheet($event,noteForm)"
+                   aria-label="showListBottomSheet">
+                    <i class="ion-android-star"></i>
+                </a>
+            </md-toolbar><!--end toolbar section-->
+
+            <div id="note-detail-content">
+                <!--content section-->
+                <p>
+                    <i class="ion-android-calendar"></i> <input type="date" ng-model="note.tanggal">
+                </p>
+                <md-input-container md-no-float>
+                    <input required name="noteTitle" placeholder="No Kesepakatan (Required)" ng-model="note.no">
+                </md-input-container>
+                <textarea rows="7" ng-model="note.isi" maxlength="250"
+                          placeholder="Keterangan ...."></textarea>
+                <span>
+                    {{(note.isi.length > 0 ? note.isi.length :0) | json}}/250
+                </span>
+            </div><!--end content section-->
+        </ion-content>
+    </form><!--end note detail section-->
+
+
+    <!--angular template section-->
+    <script type="text/ng-template" id="contract-actions-template">
+        <md-bottom-sheet class="md-list md-has-header">
+            <h1 class="md-bottom-sheet-header">Actions</h1>
+            <!--list section-->
+            <md-list>
+               <md-list-item>
+                    <a class="md-default-theme md-bottom-sheet-list-item"
+                       ng-class="{ 'disabled-link': disableSaveBtn}"
+                       ng-click="saveNote(note,$event)">
+                        <i class="ion-android-list"></i>
+                        <span>Simpan Kesepakatan</span>
+                    </a>
+                </md-list-item>
+
+                <md-list-item ng-show="actionDelete">
+                    <a class="md-default-theme md-bottom-sheet-list-item"
+                       ng-click="deleteNote(note,$event)">
+                        <i class="ion-android-delete"></i>
+                        <span>Hapus Kesepakatan</span>
+                    </a>
+                </md-list-item>
+            </md-list>
+            <!--end list section-->
+        </md-bottom-sheet>
+    </script><!--end angular template section-->
+
+</ion-view>

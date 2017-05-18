@@ -455,16 +455,87 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch', 'starter.controllers'
                     }
                 }
             })
+            .state('app.deallist', {
+                url: "/deallist",
+                params: {
+                    noteDetail: null,
+                    actionDelete: false,
+                    task:null
+                },
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/themes/online-course/html/deal-list.html",
+                        controller: 'dealListCtrl'
+                    }
+                }
+            })
             .state('app.dealdetail', {
                 url: "/dealdetail",
                 params: {
                     noteDetail: null,
-                    actionDelete: false
+                    actionDelete: false,
+                    task:null
                 },
                 views: {
                     'menuContent': {
-                        templateUrl: "templates/application-storage/local-application-db/html/deal-detail.html",
+                        templateUrl: "templates/themes/online-course/html/deal-detail.html",
                         controller: 'dealDetailCtrl'
+                    }
+                }
+            })
+            .state('app.quotelist', {
+                url: "/quotelist",
+                params: {
+                    noteDetail: null,
+                    actionDelete: false,
+                    task:null
+                },
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/themes/online-course/html/quote-list.html",
+                        controller: 'quoteListCtrl'
+                    }
+                }
+            })
+            .state('app.quotedetail', {
+                url: "/quotedetail",
+                params: {
+                    noteDetail: null,
+                    actionDelete: false,
+                    task:null
+                },
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/themes/online-course/html/quote-detail.html",
+                        controller: 'quoteDetailCtrl'
+                    }
+                }
+            })
+            .state('app.meetlist', {
+                url: "/meetlist",
+                params: {
+                    noteDetail: null,
+                    actionDelete: false,
+                    task:null
+                },
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/themes/online-course/html/meet-list.html",
+                        controller: 'meetListCtrl'
+                    }
+                }
+            })
+            .state('app.meetdetail', {
+                url: "/meetdetail",
+                params: {
+                    noteDetail: null,
+                    actionDelete: false,
+                    task:null
+                },
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/themes/online-course/html/meet-detail.html",
+                        controller: 'meetDetailCtrl'
                     }
                 }
             })
@@ -883,7 +954,7 @@ angular.module('starter', ['ionic','ngIOS9UIWebViewPatch', 'starter.controllers'
                 }
             })
             .state('app.onlineCourse', {
-                url: "/onlineCourse/:informationId",
+                url: "/onlineCourse",
                 params: {
                     task: null,
                 },

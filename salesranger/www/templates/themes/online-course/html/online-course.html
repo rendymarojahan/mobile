@@ -27,7 +27,7 @@
                             <div class="product-detail-price">
                                 <div class="right">
                                     <a class="md-raised md-warn md-button md-default-theme" ng-click="addToCart()">
-                                        Kesepakatan{{product.status}}
+                                        {{product.status}}
                                     </a>
                                 </div>
                             </div><!--end product tab detail price section-->
@@ -36,26 +36,16 @@
                             <div class="product-detail-review">
                                 <p>Potensial :
                                     <span>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star" ng-repeat="potensi in potensial"></i>
                                     </span>
                                 </p>
                             </div><!--end product tab detail review section-->
 
                             <!--product tab detail shipping section-->
-                            <div class="product-detail-shipping row">
+                            <div class="product-detail-shipping row" ng-repeat="pesan in detailProduct">
                                 <div class="col-67">
-                                    <p>Product : MT098541A</p>
-
-                                    <p>Coupon : PR34221</p>
-
-                                    <p>Administrasi : Free</p>
-
-                                    <p>Money Back : 30 Day</p>
-
+                                    <p>Product : {{pesan.nama}}</p>
+                                    <p>harga : {{pesan.harga | currency:"Rp ":0}}</p>
                                 </div>
                                 <div class="col-33">
                                     <p>In Stock</p>
@@ -113,8 +103,8 @@
                                         </p>
 
                                         <p>
-                                            <a href="" class="md-raised md-button md-default-theme ionic-course-background" ng-click="navigateTo('app.notelist',product)">
-                                                <i class="fa fa-calendar"></i> 1{{product.pertemuan}}</a>
+                                            <a href="" class="md-raised md-button md-default-theme ionic-course-background" ng-click="navigateTo('app.meetlist',product)">
+                                                <i class="fa fa-calendar"></i> {{pertemuan}}</a>
                                         </p>
                                     </div>
                                 </div><!--end content item section-->
@@ -134,8 +124,8 @@
                                         </p>
 
                                         <p>
-                                            <a href="" class="md-raised md-button md-default-theme ios-course-background">
-                                                <i class="fa fa-file-text"></i> 1{{product.penawaran}}</a>
+                                            <a href="" class="md-raised md-button md-default-theme ios-course-background" ng-click="navigateTo('app.quotelist',product)">
+                                                <i class="fa fa-file-text"></i> {{penawaran}}</a>
                                         </p>
                                     </div>
                                 </div><!--end content item section-->
@@ -155,8 +145,8 @@
                                         </p>
 
                                         <p>
-                                            <a href="" class="md-raised md-button md-default-theme android-course-background" ng-click="navigateTo('app.dealdetail',product)">
-                                                <i class="fa fa-handshake-o"></i> {{product.kesepakatan}}</a>
+                                            <a href="" class="md-raised md-button md-default-theme android-course-background" ng-click="navigateTo('app.deallist',product)">
+                                                <i class="fa fa-handshake-o"></i> {{kesepakatan}}</a>
                                         </p>
                                     </div>
                                 </div><!--end content item section-->

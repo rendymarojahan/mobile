@@ -184,6 +184,7 @@ appControllers.controller('contractDetailCtrl', function ($mdBottomSheet, $mdToa
                     createDate: contract.createDate,
                     age: contract.age,
                     isEnable: contract.isEnable,
+                    status: "New",
                     assignto: myCache.get('thisMemberId'),
                     dateupdated: Date.now()
                 }
@@ -252,7 +253,7 @@ appControllers.controller('contractDetailCtrl', function ($mdBottomSheet, $mdToa
             locals: {
                 displayOption: {
                     title: "Confirm to remove data?",
-                    content: "Data will remove form SQLite.",
+                    content: "Data will remove.",
                     ok: "Confirm",
                     cancel: "Close"
                 }
