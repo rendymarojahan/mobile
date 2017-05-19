@@ -2,7 +2,6 @@
 appControllers.controller('defaultUserInterfaceCtrl', function ($scope, $state, $mdBottomSheet, $mdToast, $mdDialog, CustomerFactory) {
 
     $scope.tasks = [];
-
     $scope.tasks = CustomerFactory.getTasks();
     $scope.tasks.$loaded().then(function (x) {
     refresh($scope.tasks, $scope, CustomerFactory);

@@ -129,7 +129,7 @@ appControllers.controller('contractDetailCtrl', function ($mdBottomSheet, $mdToa
         var tempContract = {
             id: null,
             firstName: '',
-            lastName: '',
+            alamat: '',
             telephone: '',
             email: '',
             createDate: $filter('date')(new Date(), 'MMM dd yyyy'),
@@ -167,23 +167,22 @@ appControllers.controller('contractDetailCtrl', function ($mdBottomSheet, $mdToa
             try {
                 $scope.temp = {
                     firstName: contract.firstName,
-                    lastName: contract.lastName,
+                    alamat: contract.alamat,
                     telephone: contract.telephone,
                     email: contract.email,
-                    createDate: contract.createDate,
-                    age: contract.age,
-                    isEnable: contract.isEnable,
+                    createDate: $filter('date')(new Date(), 'MMM dd yyyy'),
+                    isEnable: false,
                     addedby: myCache.get('thisMemberId'),
+                    assignto: myCache.get('thisMemberId'),
                     dateupdated: Date.now()
                 }
                 $scope.tugas = {
                     firstName: contract.firstName,
-                    lastName: contract.lastName,
+                    alamat: contract.alamat,
                     telephone: contract.telephone,
                     email: contract.email,
-                    createDate: contract.createDate,
-                    age: contract.age,
-                    isEnable: contract.isEnable,
+                    createDate: $filter('date')(new Date(), 'MMM dd yyyy'),
+                    isEnable: false,
                     status: "New",
                     assignto: myCache.get('thisMemberId'),
                     dateupdated: Date.now()
@@ -291,7 +290,7 @@ appControllers.controller('contractDetailCtrl', function ($mdBottomSheet, $mdToa
     // form(object) = contract object that presenting on the view.
     $scope.validateRequiredField = function (form) {
         return !(   (form.firstName.$error.required == undefined)
-        && (form.lastName.$error.required == undefined)
+        && (form.alamat.$error.required == undefined)
         && (form.telephone.$error.required == undefined));
     };// End validate the required field. 
 

@@ -78,12 +78,12 @@
                                         </p>
 
                                         <p>
-                                            <a href="tel: {{product.telephone}}" class="md-raised md-button md-default-theme angular-course-background">
-                                                <i class="fa fa-phone"></i> 3{{product.telepon}}</a>
-                                            <a href="sms: {{product.telephone}}" class="md-raised md-button md-default-theme angular-course-background">
-                                                <i class="fa fa-commenting"></i>2{{product.sms}}</a>
-                                            <a href="mailto: {{product.email}}" class="md-raised md-button md-default-theme angular-course-background">
-                                                <i class="fa fa-envelope"></i>2{{product.mail}}</a>
+                                            <a ng-click="tel()" class="md-raised md-button md-default-theme angular-course-background">
+                                                <i class="fa fa-phone"></i> {{product.call}}</a>
+                                            <a ng-click="sms()" class="md-raised md-button md-default-theme angular-course-background">
+                                                <i class="fa fa-commenting"></i>{{product.sms}}</a>
+                                            <a ng-click="surat()" class="md-raised md-button md-default-theme angular-course-background">
+                                                <i class="fa fa-envelope"></i>{{product.surat}}</a>
                                         </p>
                                     </div>
                                 </div> <!--end content item section-->

@@ -46,7 +46,7 @@
                     <i class="fa fa-user"></i>
                 </div>
                 <div class="col-50">
-                    {{ contract.firstName }} {{ contract.lastName }}
+                    {{ contract.firstName }}
                 </div>
                 <div class="col-25 status-button">
                     <md-menu md-position-mode="target-right target" class="md-list-item-md-menu-right">
@@ -76,7 +76,7 @@
 
                 <i class="fa fa-user"></i>
 
-                <p>{{ contract.firstName }} {{ contract.lastName }}</p>
+                <p>{{ contract.firstName }}</p>
                 <md-switch class="md-secondary"
                            ng-model="contract.isEnable"
                            ng-change="updateContract(contract)">

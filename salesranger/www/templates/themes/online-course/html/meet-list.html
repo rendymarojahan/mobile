@@ -27,14 +27,14 @@
             <div id="location-feed-content">
                 <div class="location-list">
                     <!--location item section-->
-                    <div class="location-item" ng-repeat="note in noteList | filter: { no: filterText } | orderBy: 'no'" ng-click="navigateTo('app.dealdetail' , note )">
-                        <div class="location-img" style="background-image:url('img/location_feed_01.png')">
+                    <div class="location-item" ng-repeat="note in noteList | filter: { tempat: filterText } | orderBy: 'tempat'" ng-click="navigateTo('app.meetdetail' , note )">
+                        <div class="location-img" style="background-image:url('img/bni.jpg')">
 
                         </div>
                         <div class="location-content row">
                             <div class="col-90">
                                 <h1>
-                                    {{note.no}}
+                                    {{note.tempat}}
                                 </h1>
 
                                 <p>
@@ -54,7 +54,7 @@
     </ion-content><!--end note list section-->
     <!--footer fab bar-->
     <div class="footer-fab-bar">
-        <a class="md-button md-accent md-fab fab-footer" ng-click="navigateTo('app.dealdetail')" aria-label="Add">
+        <a class="md-button md-accent md-fab fab-footer" ng-click="navigateTo('app.meetdetail')" aria-label="Add">
             <i class="ion-android-create"></i>
         </a>
     </div><!--end footer fab bar-->

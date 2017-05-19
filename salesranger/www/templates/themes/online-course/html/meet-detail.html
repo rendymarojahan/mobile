@@ -38,10 +38,10 @@
                     <i class="ion-android-calendar"></i> <input type="date" ng-model="note.tanggal">
                 </p>
                 <md-input-container md-no-float>
-                    <input required name="noteTitle" placeholder="Tempat (Required)" ng-model="note.no">
+                    <input required name="noteTitle" placeholder="Tempat (Required)" ng-model="note.tempat">
                 </md-input-container>
-                <textarea rows="7" ng-model="note.isi" maxlength="250"
-                          placeholder="Keterangan ...."></textarea>
+                <textarea rows="7" ng-model="note.isi" maxlength="250" placeholder="">
+                </textarea>
                 <span>
                     {{(note.isi.length > 0 ? note.isi.length :0) | json}}/250
                 </span>

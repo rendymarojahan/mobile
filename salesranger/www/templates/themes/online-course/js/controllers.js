@@ -1,5 +1,5 @@
 // Controller of product Detail Page.
-appControllers.controller('detailTugasCtrl', function ($scope, $state, $mdToast, $mdBottomSheet, $timeout, $stateParams, CustomerFactory) {
+appControllers.controller('detailTugasCtrl', function ($scope, $state, $mdToast, $mdBottomSheet, $timeout, $stateParams, CustomerFactory, myCache, $cordovaSms, $cordovaEmailComposer) {
 
     // This function is the first activity in the controller. 
     // It will initial all variable data and let the function works when page load.
@@ -121,6 +121,97 @@ appControllers.controller('detailTugasCtrl', function ($scope, $state, $mdToast,
             }
         });
     }; // End addToCart.
+
+
+    $scope.tel = function(){
+        window.plugins.CallNumber.callNumber(
+            function onSuccess(result) {
+                console.log("Success:"+result);
+                var call = 1;
+                if (!isNaN($scope.product.call)) {
+                    call = 1 + parseFloat($scope.product.call);
+                }
+                $scope.product.call = call;
+                $scope.status = {
+                    status: "Menghubungi",
+                    call: $scope.product.call,
+                    addedby: myCache.get('thisMemberId'),
+                    dateupdated: Date.now()
+                }
+                var pRef = CustomerFactory.pRef();
+                var newStatus = pRef.child($scope.product.$id);
+                newStatus.update($scope.status);
+            },
+            function onError(result) {
+                console.log("Error:"+result);
+            },
+            $scope.product.telephone, true);
+    }
+
+    $scope.sms = function(){
+        var options = {
+            replaceLineBreaks: false, // true to replace \n by a new line, false by default
+            android: {
+                intent: 'INTENT'  // send SMS with the native android SMS messaging
+                //intent: '' // send SMS without open any other app
+            }
+        };
+        $cordovaSms
+          .send($scope.product.telephone, 'Hello',options)
+          .then(function() {
+            var sms = 1;
+            if (!isNaN($scope.product.sms)) {
+                sms = 1 + parseFloat($scope.product.sms);
+            }
+            $scope.product.sms = sms;
+            $scope.status = {
+                status: "Menghubungi",
+                sms: $scope.product.sms,
+                addedby: myCache.get('thisMemberId'),
+                dateupdated: Date.now()
+            }
+            var pRef = CustomerFactory.pRef();
+            var newStatus = pRef.child($scope.product.$id);
+            newStatus.update($scope.status);
+          }, function(error) {
+            // An error occurred
+          });
+    }
+
+    $scope.surat = function(){
+        $cordovaEmailComposer.isAvailable().then(function() {
+            var surat = 1;
+            if (!isNaN($scope.product.surat)) {
+                surat = 1 + parseFloat($scope.product.surat);
+            }
+            $scope.product.surat = surat;
+            $scope.status = {
+                status: "Menghubungi",
+                surat: $scope.product.surat,
+                addedby: myCache.get('thisMemberId'),
+                dateupdated: Date.now()
+            }
+            var pRef = CustomerFactory.pRef();
+            var newStatus = pRef.child($scope.product.$id);
+            newStatus.update($scope.status);
+        }, function () {
+        // not available
+        });
+
+        var email = {
+            to: $scope.product.email,
+            subject: 'Sales Ranger',
+            body: 'hai, kami dari sales ranger',
+            isHtml: true
+        };
+
+        $cordovaEmailComposer.open(email).then(null, function () {
+        // user cancelled email
+        });
+    }
+
+
+    
 
     // sharedProduct fro show shared social bottom sheet by calling sharedSocialBottomSheetCtrl controller.
     $scope.sharedProduct = function ($event, task) {
@@ -962,7 +1053,7 @@ appControllers.controller('meetListCtrl', function ($scope, $stateParams, $timeo
 
         // $scope.noteList is the variable that store data from NoteDB service.
         $scope.noteList = [];
-        $scope.noteList = CustomerFactory.getKesepakatan($scope.task.$id);
+        $scope.noteList = CustomerFactory.getPertemuan($scope.task.$id);
         $scope.noteList.$loaded().then(function (x) {
         refresh($scope.noteList, $scope, CustomerFactory);
         }).catch(function (error) {
@@ -995,7 +1086,7 @@ appControllers.controller('meetListCtrl', function ($scope, $stateParams, $timeo
 
     };//End initialForm.
     $scope.getNoteList = function () {
-        $scope.noteList = CustomerFactory.getKesepakatan($scope.task.$id);
+        $scope.noteList = CustomerFactory.getPertemuan($scope.task.$id);
     };
     // navigateTo is for navigate to other page 
     // by using targetPage to be the destination page 
@@ -1014,7 +1105,7 @@ appControllers.controller('meetListCtrl', function ($scope, $stateParams, $timeo
     $scope.initialForm();
 });// End of Notes List Page  Controller.
 
-appControllers.controller('meetDetailCtrl', function ($scope,  $mdToast, $stateParams, $filter, $mdBottomSheet, $mdDialog, $mdToast, $ionicHistory, CustomerFactory, CurrentUserService, myCache) {
+appControllers.controller('meetDetailCtrl', function ($scope,  $mdToast, $stateParams, $filter, $mdBottomSheet, $cordovaCamera, $mdDialog, $mdToast, $ionicHistory, $ionicActionSheet, PickTransactionServices, CustomerFactory, CurrentUserService, myCache) {
 
     // initialForm is the first activity in the controller. 
     // It will initial all variable data and let the function works when page load.
@@ -1071,7 +1162,7 @@ appControllers.controller('meetDetailCtrl', function ($scope,  $mdToast, $stateP
     $scope.validateRequiredField = function (form) {
         return !(form.noteTitle.$error.required == undefined);
     };// End validate the required field.
-
+    
     // saveNote is for save note.
     // Parameter :  
     // note(object) = note object that presenting on the view.
@@ -1088,7 +1179,7 @@ appControllers.controller('meetDetailCtrl', function ($scope,  $mdToast, $stateP
             locals: {
                 displayOption: {
                     title: "Confirm to save data?",
-                    content: "Data kesepakatan akan disimpan.",
+                    content: "Data pertemuan akan disimpan.",
                     ok: "Confirm",
                     cancel: "Close"
                 }
@@ -1098,7 +1189,7 @@ appControllers.controller('meetDetailCtrl', function ($scope,  $mdToast, $stateP
             // For confirm button to save data.
             try {
                 $scope.temp = {
-                    no: note.no,
+                    tempat: note.tempat,
                     isi: note.isi,
                     createDate: $filter('date')(new Date(), 'MMM dd yyyy'),
                     tanggal: note.tanggal,
@@ -1106,14 +1197,14 @@ appControllers.controller('meetDetailCtrl', function ($scope,  $mdToast, $stateP
                     dateupdated: Date.now()
                 }
                 $scope.status = {
-                    status: "Completed",
+                    status: "Pertemuan",
                     isEnable: false,
                     addedby: myCache.get('thisMemberId'),
                     dateupdated: Date.now()
                 }
                 if ($scope.actionDelete) {
                     var pRef = CustomerFactory.pRef();
-                    var newData = pRef.child($scope.task.$id).child("kesepakatan").child(note.$id);
+                    var newData = pRef.child($scope.task.$id).child("pertemuan").child(note.$id);
                     newData.update($scope.temp);
                     var newStatus = pRef.child($scope.task.$id);
                     newStatus.update($scope.status);
@@ -1122,7 +1213,7 @@ appControllers.controller('meetDetailCtrl', function ($scope,  $mdToast, $stateP
                 // To add new data by calling ContractDB.add(contract) service.
                 else {
                     var pRef = CustomerFactory.pRef();
-                    var newData = pRef.child($scope.task.$id).child("kesepakatan");
+                    var newData = pRef.child($scope.task.$id).child("pertemuan");
                     newData.push($scope.temp);
                     var newStatus = pRef.child($scope.task.$id);
                     newStatus.update($scope.status);
@@ -1188,7 +1279,7 @@ appControllers.controller('meetDetailCtrl', function ($scope,  $mdToast, $stateP
             try {
                 // Remove note by calling  NoteDB.delete(note) service.
                 var pRef = CustomerFactory.pRef();
-                var newData = pRef.child($scope.task.$id).child("kesepakatan").child(note.$id);
+                var newData = pRef.child($scope.task.$id).child("pertemuan").child(note.$id);
                 newData.remove();
                 $ionicHistory.goBack();
             }// End remove note.

@@ -81,7 +81,7 @@ angular.module('starter.services', [])
                 return pRef;
             },
             getCustomers: function () {
-                ref = fb.child("customers").orderByChild('isEnable');
+                ref = fb.child("customers").orderByChild("assignto").equalTo(thisUserId);
                 customersRef = $firebaseArray(ref);
                 return customersRef;
             },
